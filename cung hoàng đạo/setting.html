@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài Đặt</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('images/pexels-felixmittermeier-956981.jpg'); /* Thay đổi đường dẫn đến hình nền của bạn */
+            background-size: cover; /* Đảm bảo hình nền phủ kín */
+            background-position: center; /* Căn giữa hình nền */
+            background-repeat: no-repeat; /* Không lặp lại hình nền */
+            color: #ffffff; /* Đổi màu chữ thành trắng */
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        .countdown {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffcc00; /* Màu sắc cho phần đếm ngược */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let countdown = 5; // Thời gian đếm ngược bắt đầu từ 5 giây
+            const countdownElement = document.getElementById('countdown');
+
+            // Hàm đếm ngược
+            const timer = setInterval(() => {
+                countdownElement.innerText = countdown;
+                countdown--;
+
+                // Khi đếm ngược đến 0, chuyển hướng về trang index.html
+                if (countdown < 0) {
+                    clearInterval(timer);
+                    window.location.href = 'index.html';
+                }
+            }, 1000); // Cập nhật mỗi giây
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Trang này đang phát triển</h1>
+        <p>Quay lại trang chính trong <span id="countdown" class="countdown">5</span> giây.</p>
+    </div>
+</body>
+</html>

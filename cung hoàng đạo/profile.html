@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cung Hoàng Đạo - Người Dùng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-image: url('images/pexels-felixmittermeier-956981.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            background: rgba(70, 235, 150, 0.772); /* Màu nền với độ mờ */
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+
+        .user-form, .user-info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .user-form input, .user-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .user-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .user-form button:hover {
+            background-color: #50a045;
+        }
+
+        .user-form .back-button {
+            background-color: #b1f10f;
+        }
+
+        .user-form .back-button:hover {
+            background-color: #e67e22;
+        }
+
+        .user-info h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .notification {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #d6e9c6;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+        }
+
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cung Hoàng Đạo</h1>
+    </header>
+    
+    <div class="container">
+        <div class="notification" id="successNotification">Nhập thông tin thành công!</div>
+
+        <div class="user-form">
+            <h2>Thông tin người dùng</h2>
+            <form id="userForm">
+                <input type="text" id="userName" placeholder="Nhập tên của bạn" required>
+                <input type="email" id="userEmail" placeholder="Nhập email của bạn" required>
+                <input type="date" id="userDob" max="2024-11-07" placeholder="Ngày sinh" required>
+                <select id="userZodiac" required>
+                    <option value="">Chọn cung hoàng đạo của bạn</option>
+                    <option value="Bạch Dương">Bạch Dương (21/03 - 19/04)</option>
+                    <option value="Kim Ngưu">Kim Ngưu (20/04 - 20/05)</option>
+                    <option value="Song Tử">Song Tử (21/05 - 20/06)</option>
+                    <option value="Cự Giải">Cự Giải (21/06 - 22/07)</option>
+                    <option value="Sư Tử">Sư Tử (23/07 - 22/08)</option>
+                    <option value="Xử Nữ">Xử Nữ (23/08 - 22/09)</option>
+                    <option value="Thiên Bình">Thiên Bình (23/09 - 22/10)</option>
+                    <option value="Bọ Cạp">Bọ Cạp (23/10 - 21/11)</option>
+                    <option value="Nhân Mã">Nhân Mã (22/11 - 21/12)</option>
+                    <option value="Ma Kết">Ma Kết (22/12 - 19/01)</option>
+                    <option value="Bảo Bình">Bảo Bình (20/01 - 18/02)</option>
+                    <option value="Song Ngư">Song Ngư (19/02 - 20/03)</option>
+                </select>
+                <button type="submit">Lưu Thông Tin</button>
+                <button type="button" class="back-button" onclick="window.location.href='index.html'">Quay Về Trang Chủ</button>
+            </form>
+        </div>
+
+        <div class="user-info" id="userInfo" style="display:none;">
+            <h2>Thông tin người dùng</h2>
+            <p><strong>Tên:</strong> <span id="displayUserName"></span></p>
+            <p><strong>Email:</strong> <span id="displayUserEmail"></span></p>
+            <p><strong>Ngày sinh:</strong> <span id="displayUserDob"></span></p>
+            <p><strong>Cung hoàng đạo:</strong> <span id="displayUserZodiac"></span></p>
+            <button class="delete-button" id="deleteUserInfo">Xóa Thông Tin</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tử Vi 12 Cung Hoàng Đạo. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            if (users.length > 0) {
+                showUserInfo(users[users.length - 1]);
+            }
+            if (users.length > 0) {
+                document.getElementById("userEmail").value = users[users.length - 1].email;
+            }
+        });
+
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const userName = document.getElementById("userName").value;
+            const userEmail = document.getElementById("userEmail").value;
+            const userDob = document.getElementById("userDob").value;
+            const userZodiac = document.getElementById("userZodiac").value;
+
+            if (!userName || !userEmail || !userDob || !userZodiac) {
+                alert("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
+
+            const newUser = { name: userName, email: userEmail, dob: userDob, zodiac: userZodiac };
+
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push(newUser);
+            localStorage.setItem("users", JSON.stringify(users));
+
+            showUserInfo(newUser);
+            document.getElementById("successNotification").style.display = "block";
+
+            // Ẩn thông báo thành công sau 3 giây
+            setTimeout(() => {
+                document.getElementById("successNotification").style.display = "none";
+            }, 3000);
+        });
+
+        function showUserInfo(user) {
+            document.getElementById("displayUserName").textContent = user.name;
+            document.getElementById("displayUserEmail").textContent = user.email;
+            document.getElementById("displayUserDob").textContent = user.dob;
+            document.getElementById("displayUserZodiac").textContent = user.zodiac;
+            document.getElementById("userForm").style.display = "none";
+        document.getElementById("userInfo").style.display = "block";
+    }
+
+    document.getElementById("deleteUserInfo").addEventListener("click", function() {
+        localStorage.removeItem("users");
+        document.getElementById("userInfo").style.display = "none";
+        document.getElementById("userForm").style.display = "block";
+    });
+    </script>
+</body> 
+</html> 
